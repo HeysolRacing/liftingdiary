@@ -15,7 +15,7 @@ This is a Next.js 15.5.3 application with TypeScript and Tailwind CSS v4, using 
 
 ## Code Generation Guidelines
 
-**IMPORTANT**: When generating any code, ALWAYS first refer to the relevant documentation files within the `/docs` directory to understand existing patterns, conventions, and best practices before implementation:
+**IMPORTANT**: ALWAYS refer to the relevant documentation file(s) within the `/docs` directory FIRST, before generating, editing, or reviewing any code in this repository. This applies to every code change, no matter how small. Match implementation to the existing patterns, conventions, and best practices documented there before writing code:
 
 - /docs/auth.md
 - /docs/data-fetching.md
