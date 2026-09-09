@@ -36,32 +36,33 @@ A logged-in user can ONLY access their own data. They MUST NOT be able to access
 ## Implementation Pattern
 
 ```typescript
-// Example: /data/user-workouts.ts
-import { db } from '@/db'
-import { workouts } from '@/db/schema'
-import { eq, and } from 'drizzle-orm'
-import { auth } from '@/lib/auth' // or your auth solution
+// Example: src/data/workouts.ts
+import { db } from '@/lib/db'
+import { workouts } from '@/lib/db/schema'
+import { eq } from 'drizzle-orm'
 
-export async function getUserWorkouts() {
-  const session = await auth()
-  if (!session?.user?.id) {
-    throw new Error('Unauthorized')
-  }
-
+export async function getWorkoutsByUser(userId: string) {
   return await db
     .select()
     .from(workouts)
-    .where(eq(workouts.userId, session.user.id))
+    .where(eq(workouts.userId, userId))
 }
 ```
 
 ```typescript
 // Example: Server Component usage
-// /src/app/workouts/page.tsx
-import { getUserWorkouts } from '@/data/user-workouts'
+// src/app/workouts/page.tsx
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
+import { getWorkoutsByUser } from '@/data/workouts'
 
 export default async function WorkoutsPage() {
-  const workouts = await getUserWorkouts()
+  const { userId } = await auth()
+  if (!userId) {
+    redirect('/sign-in')
+  }
+
+  const workouts = await getWorkoutsByUser(userId)
 
   return (
     <div>
@@ -72,6 +73,8 @@ export default async function WorkoutsPage() {
   )
 }
 ```
+
+Authentication is verified where the request originates (the Server Component), and the resulting `userId` is passed into the data helper — the helper never performs its own auth lookup. This mirrors the pattern in [Data Mutations](./data-mutations.md), where server actions authenticate and pass `userId` into helpers.
 
 ## Why This Approach?
 
