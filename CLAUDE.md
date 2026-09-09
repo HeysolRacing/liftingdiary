@@ -15,7 +15,7 @@ This is a Next.js 15.5.3 application with TypeScript and Tailwind CSS v4, using 
 
 ## Code Generation Guidelines
 
-**IMPORTANT**: When generating any code, ALWAYS first refer to the relevant documentation files within the `/docs` directory to understand existing patterns, conventions, and best practices before implementation:
+**IMPORTANT**: ALWAYS refer to the relevant documentation file(s) within the `/docs` directory FIRST, before generating, editing, or reviewing any code in this repository. This applies to every code change, no matter how small. Match implementation to the existing patterns, conventions, and best practices documented there before writing code:
 
 - /docs/auth.md
 - /docs/data-fetching.md
@@ -30,3 +30,13 @@ This is a Next.js 15.5.3 application with TypeScript and Tailwind CSS v4, using 
 - **Styling**: Tailwind CSS v4 with PostCSS configuration
 - **Path Alias**: `@/*` maps to `./src/*` for cleaner imports
 - **Font System**: Uses Geist fonts configured in the root layout
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
